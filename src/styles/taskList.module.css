@@ -1,0 +1,9 @@
+.list {
+  margin-top: 20px;
+}
+
+.empty {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
