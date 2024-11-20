@@ -23,7 +23,7 @@ const TaskFilter: React.FC<TaskFilterProps> = ({ onFilterChange, filter }) => {
   );
 
   return (
-    <div className={styles.filter}>
+    <div className={styles['task-filter']}>
       {/* <input
         type="text"
         value={query}

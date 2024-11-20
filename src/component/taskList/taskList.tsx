@@ -2,6 +2,7 @@ import React from 'react';
 import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
 import TaskItem from '../taskItem/taskItem';
 import { Task } from '../../utils/types';
+import styles from '../../styles/taskList.module.css';
 
 interface TaskListProps {
   tasks: Task[];
@@ -35,8 +36,8 @@ const TaskList: React.FC<TaskListProps> = ({
   };
 
   return (
-    <div className="task-list">
-      <List height={400} itemCount={tasks.length} itemSize={100} width="100%">
+    <div className={styles['task-list']}>
+      <List height={600} itemCount={tasks.length} itemSize={300} width="100%">
         {Row}
       </List>
     </div>

@@ -26,7 +26,7 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ onAdd }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles['add-task-form']} onSubmit={handleSubmit}>
       <input
         className={styles.input}
         type="text"

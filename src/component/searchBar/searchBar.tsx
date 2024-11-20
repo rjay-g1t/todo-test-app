@@ -1,22 +1,26 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { setSearchQuery } from '../../redux/taskSlice';
+import styles from '../../styles/searchBar.module.css';
 
-interface SearchBarProps {
-  searchQuery: string;
-  onSearch: (query: string) => void;
-}
+const SearchBar: React.FC = () => {
+  const searchQuery = useSelector(
+    (state: RootState) => state.tasks.searchQuery
+  );
+  const dispatch = useDispatch();
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, onSearch }) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onSearch(e.target.value);
+    dispatch(setSearchQuery(e.target.value)); // Update Redux state on input change
   };
 
   return (
-    <div className="search-bar">
+    <div className={styles['search-bar']}>
       <input
         type="text"
+        placeholder="Search tasks..."
         value={searchQuery}
         onChange={handleSearch}
-        placeholder="Search tasks..."
       />
     </div>
   );

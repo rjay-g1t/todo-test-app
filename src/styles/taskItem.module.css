@@ -1,24 +1,55 @@
-.task {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  margin: 10px 0;
+/* taskItem.module.css */
+.task-item {
+  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  background: #fafafa;
-}
-
-.task:hover {
-  background: #f0f0f0;
-}
-
-.buttons {
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.status {
-  font-weight: bold;
-  color: #4caf50;
+.task-item h3 {
+  margin: 0;
+  font-size: 1.1em;
+  color: #2d862d;
+}
+
+.task-item p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.task-item select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.task-item button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+.task-item button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.task-item button:first-child:hover {
+  background-color: #0056b3;
+}
+
+.task-item button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.task-item button:last-child:hover {
+  background-color: #c82333;
 }

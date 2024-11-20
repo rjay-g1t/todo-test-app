@@ -1,4 +1,7 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { editTask, deleteTask, updateTaskStatus } from '../../redux/taskSlice';
+import styles from '../../styles/taskItem.module.css';
 
 interface TaskItemProps {
   id: string;
@@ -6,12 +9,6 @@ interface TaskItemProps {
   description: string;
   status: 'Pending' | 'In Progress' | 'Completed';
   dueDate: string;
-  onEdit: (id: string, updatedTask: Partial<TaskItemProps>) => void;
-  onDelete: (id: string) => void;
-  onStatusChange: (
-    id: string,
-    newStatus: 'Pending' | 'In Progress' | 'Completed'
-  ) => void;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
@@ -20,23 +17,28 @@ const TaskItem: React.FC<TaskItemProps> = ({
   description,
   status,
   dueDate,
-  onEdit,
-  onDelete,
-  onStatusChange,
 }) => {
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [editingTitle, setEditingTitle] = useState(title);
   const [editingDescription, setEditingDescription] = useState(description);
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onStatusChange(
-      id,
-      e.target.value as 'Pending' | 'In Progress' | 'Completed'
+    dispatch(
+      updateTaskStatus({
+        id,
+        newStatus: e.target.value as TaskItemProps['status'],
+      })
     );
   };
 
   const handleSave = () => {
-    onEdit(id, { title: editingTitle, description: editingDescription });
+    dispatch(
+      editTask({
+        id,
+        updatedTask: { title: editingTitle, description: editingDescription },
+      })
+    );
     setIsEditing(false);
   };
 
@@ -47,7 +49,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   };
 
   return (
-    <div className="task-item">
+    <div className={styles['task-item']}>
       {isEditing ? (
         <>
           <input
@@ -85,12 +87,12 @@ const TaskItem: React.FC<TaskItemProps> = ({
             <option value="Completed">Completed</option>
           </select>
           <button onClick={() => setIsEditing(true)}>Edit</button>
-          <button onClick={() => onDelete(id)}>Delete</button>
+          <button onClick={() => dispatch(deleteTask(id))}>Delete</button>
         </>
       )}
     </div>
   );
 };
 
-// Memoize the component to prevent unnecessary re-renders
-export default memo(TaskItem);
+// Wrap TaskItem with React.memo
+export default React.memo(TaskItem);
