@@ -1,4 +1,3 @@
-import React from 'react';
 import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
 import TaskItem from '../taskItem/taskItem';
 import { Task } from '../../utils/types';

@@ -1,30 +1,39 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import AddTaskForm from './addTaskForm';
 
-describe('AddTaskForm', () => {
+describe('AddTaskForm Component', () => {
   it('renders the form correctly', () => {
     render(<AddTaskForm onAdd={jest.fn()} />);
-    expect(screen.getByPlaceholderText('Enter task title')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Task Title')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Task Description')).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText('Enter task description')
+      screen.getByRole('button', { name: /add task/i })
     ).toBeInTheDocument();
   });
 
-  it('calls onAdd with task details on form submission', () => {
+  it('alerts when trying to submit without a title', () => {
+    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    render(<AddTaskForm onAdd={jest.fn()} />);
+    userEvent.click(screen.getByRole('button', { name: /add task/i }));
+    expect(alertMock).toHaveBeenCalledWith('Title is required');
+    alertMock.mockRestore();
+  });
+
+  it('calls onAdd with correct task details on valid submission', () => {
     const mockOnAdd = jest.fn();
     render(<AddTaskForm onAdd={mockOnAdd} />);
-
-    fireEvent.change(screen.getByPlaceholderText('Enter task title'), {
-      target: { value: 'Test Task' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Enter task description'), {
-      target: { value: 'Test Description' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: /add task/i }));
-
+    userEvent.type(screen.getByPlaceholderText('Task Title'), 'Test Title');
+    userEvent.type(
+      screen.getByPlaceholderText('Task Description'),
+      'Test Description'
+    );
+    userEvent.click(screen.getByRole('button', { name: /add task/i }));
     expect(mockOnAdd).toHaveBeenCalledWith({
-      title: 'Test Task',
+      title: 'Test Title',
       description: 'Test Description',
     });
+    expect(screen.getByPlaceholderText('Task Title')).toHaveValue('');
+    expect(screen.getByPlaceholderText('Task Description')).toHaveValue('');
   });
 });

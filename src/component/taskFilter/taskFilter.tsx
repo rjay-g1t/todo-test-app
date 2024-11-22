@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import styles from '../../styles/taskFilter.module.css';
@@ -12,8 +12,6 @@ interface TaskFilterProps {
 }
 
 const TaskFilter: React.FC<TaskFilterProps> = ({ onFilterChange, filter }) => {
-  // const [query, setQuery] = useState('');
-  // const [status, setStatus] = useState('All');
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   const filteredTasks = tasks.filter(
@@ -24,12 +22,6 @@ const TaskFilter: React.FC<TaskFilterProps> = ({ onFilterChange, filter }) => {
 
   return (
     <div className={styles['task-filter']}>
-      {/* <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search tasks..."
-      /> */}
       <select
         onChange={(e) =>
           onFilterChange(

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { editTask, deleteTask, updateTaskStatus } from '../../redux/taskSlice';
 import styles from '../../styles/taskItem.module.css';
@@ -95,4 +95,4 @@ const TaskItem: React.FC<TaskItemProps> = ({
 };
 
 // Wrap TaskItem with React.memo
-export default React.memo(TaskItem);
+export default memo(TaskItem);

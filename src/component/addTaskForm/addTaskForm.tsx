@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from '../../styles/addTaskForm.module.css';
 
 interface AddTaskFormProps {
@@ -16,8 +16,6 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ onAdd }) => {
       alert('Title is required');
       return;
     }
-
-    // Call the `onAdd` function passed as a prop
     onAdd({ title, description });
 
     // Clear input fields after submission

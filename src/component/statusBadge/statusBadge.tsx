@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface StatusBadgeProps {
   status: 'Pending' | 'In Progress' | 'Completed';
 }
@@ -14,7 +12,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
       case 'Completed':
         return { backgroundColor: 'green', color: 'white' };
       default:
-        return {};
+        return null;
     }
   };
 
